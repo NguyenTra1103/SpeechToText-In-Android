@@ -14,12 +14,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
-
 public class MainActivity extends AppCompatActivity {
     private ImageView iv_mic;
     private TextView tv_Speech_to_text;
     private static final int REQUEST_CODE_SPEECH_INPUT = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         iv_mic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Intent intent
                         = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -41,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     Toast
                             .makeText(MainActivity.this, " " + e.getMessage(),
                                     Toast.LENGTH_SHORT)
@@ -64,5 +60,12 @@ public class MainActivity extends AppCompatActivity {
                         Objects.requireNonNull(result).get(0));
             }
         }
+}
+
+
+    public void btnSave(View view) {
+        Intent intent = new Intent(this,SecondActivity.class);
+        intent.putExtra("message",tv_Speech_to_text.getText());
+        startActivity(intent);
     }
 }
